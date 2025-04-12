@@ -1,0 +1,28 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "ninja",
+            "generator": "Ninja Multi-Config",
+            "binaryDir": "${sourceDir}/build"
+        },
+        {
+            "name": "ninja-clang",
+            "inherits": "ninja",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++"
+            }
+        },
+        {
+            "name": "rider",
+            "inherits": "ninja",
+            "generator": "Visual Studio 17 2022"
+        },
+        {
+            "name": "rider-clang",
+            "inherits": "rider",
+            "toolset": "ClangCL"
+        }
+    ]
+}
