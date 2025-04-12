@@ -7,7 +7,8 @@ The project has four configurations for four test scenarios:
 2. 01_FullExcept: exceptions used with both throwing and catching
 3. 02_ThrowExcept: exceptions thrown, but not caught
 4. 03_CatchExcept: exceptions caught, but not thrown
-All are base do the default 'Release' configuration provided by cmake.
+
+All configurations are based on the default Release configuration provided by cmake.
 
 No exceptions are actually thrown in any of the scenarios. The aim is to test the influence of exceptions on a codebase that doesn't really excpect them to be thrown.
 
@@ -15,13 +16,13 @@ No exceptions are actually thrown in any of the scenarios. The aim is to test th
 
 I'm making this public, because my results were somewhat unexpected.
 
-MSVC (VS 17.13.6):
+#### MSVC (VS 17.13.6):
 1. 00_NoExpect: ~7970ms
 2. 01_FullExpect: ~8100ms
 3. 02_ThrowExpect: ~8750ms
 4. 03_CatchExpect: ~7050ms
 
-Clang (19.1.1):
+#### Clang (19.1.1):
 1. 00_NoExpect: ~5000ms
 2. 01_FullExpect: ~4750ms
 3. 02_ThrowExpect: ~4800ms
