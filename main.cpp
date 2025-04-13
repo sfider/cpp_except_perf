@@ -8,7 +8,7 @@
 #endif
 
 namespace {
-    int fibonacci(int i) {
+    std::tuple<int, int> fibonacci(int i) {
         if (i <= 1) [[unlikely]] {
 #if THROW_EXCEPTIONS
             if (i < 0) {
@@ -17,26 +17,26 @@ namespace {
 #else
             assert(i >= 0);
 #endif
-
-            if (i == 0)
-                return 0;
-            return 1;
+            return std::make_tuple(i, i - 1);
         }
-
-        return fibonacci(i - 1) + fibonacci(i - 2);
+        auto a = fibonacci(i - 1);
+        auto b = fibonacci(std::get<1>(a));
+        return std::make_tuple(std::get<0>(a) + std::get<0>(b), i - 1);
     }
 }
 
-int main() {
+int main(int argc, char* argv[]) {
     auto start_time = std::chrono::high_resolution_clock::now();
 
+    int cnt = argc > 1 ? std::atoi(argv[1]) : 45;
+
     int result {0};
-    for (int i = 0; i < 45; i++) {
+    for (int i = 0; i < cnt; i++) {
 #if CATCH_EXCEPTIONS
         try
 #endif
         {
-            result += fibonacci(i);
+            result += std::get<0>(fibonacci(i));
         }
 #if CATCH_EXCEPTIONS
         catch (const std::exception &) {
