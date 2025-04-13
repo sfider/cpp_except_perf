@@ -14,23 +14,23 @@ No exceptions are actually thrown in any of the scenarios. The aim is to test th
 
 ## Results
 
-I'm making this public, because my results were somewhat unexpected.
+After making sure that there was no tail recursion and loop unrolling opportunities, the results got much more consistant:
 
 #### MSVC (VS 17.13.6):
-1. 00_NoExpect: ~7970ms
-2. 01_FullExpect: ~8100ms
-3. 02_ThrowExpect: ~8750ms
-4. 03_CatchExpect: ~7050ms
+1. 00_NoExpect: ~9600s
+2. 01_FullExpect: ~9170ms
+3. 02_ThrowExpect: ~9700ms
+4. 03_CatchExpect: ~9600ms
 
 #### Clang (19.1.1):
-1. 00_NoExpect: ~5000ms
-2. 01_FullExpect: ~4750ms
-3. 02_ThrowExpect: ~4800ms
-4. 03_CatchExpect: ~4680ms
+1. 00_NoExpect: ~9600ms
+2. 01_FullExpect: ~9250ms
+3. 02_ThrowExpect: ~9250ms
+4. 03_CatchExpect: ~9600ms
 
-My expectation was that the code with exceptions disabled would be the most performant, as the ancient tribal knowledge would suggest. However, the results are... wierd.
+My expectation was that the code with exceptions disabled would be the most performant, as the ancient tribal knowledge would suggest.
 
-I believe there's a simple explenation, most probably a bug in the configuration of this test. But I'll need some help with finding it :)
+However, the tests seem to point to the conclusion, that the presence of exceptions doesn't make much of a difference in this simple case.
 
 ## Configure
 
@@ -54,7 +54,7 @@ cmake --build build --config 02_ThrowExcept
 cmake --build build --config 03_CatchExcept
 ```
 
-## Run
+## Test
 
 To run all configurations use:
 ```sh
@@ -62,4 +62,11 @@ To run all configurations use:
 ./build/01_FullExcept/cpp_except_perf.exe
 ./build/02_ThrowExcept/cpp_except_perf.exe
 ./build/03_CatchExcept/cpp_except_perf.exe
+```
+
+## Build & Test
+
+To automatically build and test all configurations use:
+```sh
+./build_and_test.bat
 ```
